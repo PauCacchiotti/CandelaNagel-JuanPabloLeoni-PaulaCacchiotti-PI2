@@ -48,10 +48,6 @@ function Login(props) {
         <Text style={ styles.buttonText }>Login</Text>
       </Pressable>
 
-      <Pressable style={ styles.buttonTemporal } onPress={ () => props.navigation.navigate('HomeMenu') }>
-        <Text style={ styles.buttonText }>Entrar (temporal)</Text>
-      </Pressable>
-
       <Pressable onPress={ () => props.navigation.navigate('Register') }>
         <Text style={ styles.link }>¿No tenés cuenta? Registrate</Text>
       </Pressable>
@@ -87,12 +83,6 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#28a745',
-    padding: 10,
-    borderRadius: 4,
-    marginBottom: 15
-  },
-  buttonTemporal: {
-    backgroundColor: '#6c757d',
     padding: 10,
     borderRadius: 4,
     marginBottom: 15
