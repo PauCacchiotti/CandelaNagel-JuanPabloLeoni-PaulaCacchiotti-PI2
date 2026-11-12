@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 import { auth } from '../firebase/config';
 
@@ -6,6 +6,14 @@ function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        props.navigation.navigate('HomeMenu');
+      }
+    })
+  }, []);
 
   function login(email, pass) {
     auth.signInWithEmailAndPassword(email, pass)

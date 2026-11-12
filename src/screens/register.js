@@ -22,6 +22,7 @@ function Register(props) {
           createdAt: Date.now()
         })
           .then(() => {
+            auth.signOut();
             props.navigation.navigate('Login');
           })
           .catch(e => console.log(e))
