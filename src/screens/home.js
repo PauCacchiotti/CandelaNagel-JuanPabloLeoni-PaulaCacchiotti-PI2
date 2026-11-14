@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
-import { db } from '../firebase/config';
+import { auth, db } from '../firebase/config';
+import firebase from 'firebase';
+
 
 function Home(props) {
   const [posts, setPosts] = useState([]);
@@ -24,20 +26,59 @@ function Home(props) {
       );
     return () => unsubscribe();
   }, []);
+
+  function darLike(id, email) {
+    db.collection('posts')
+      .doc(id)
+      .update({
+        likes: firebase.firestore.FieldValue.arrayUnion(email)
+      })
+      .then(() => {
+        console.log('Like agregado');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  function quitarLike(id, email) {
+    db.collection('posts')
+      .doc(id)
+      .update({
+        likes: firebase.firestore.FieldValue.arrayRemove(email)
+      })
+      .then(() => {
+        console.log('Like eliminado');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   function renderPost({ item }) {
     return (
       <View style={styles.post}>
         <Text style={styles.email}>
-          {item.data.email}
+          {item.data.owner}
         </Text>
         <Text style={styles.description}>
-          {item.data.descripcionPost}
+          {item.data.description}
         </Text>
         <Text style={styles.likes}>
           Likes: {item.data.likes ? item.data.likes.length : 0}
         </Text>
-        <Pressable>
-          <Text style={styles.buttonText}>Me gusta</Text>
+        <Pressable
+          onPress={() => {
+             if (item.data.likes && item.data.likes.includes(auth.currentUser.email)) {
+              quitarLike(item.id, auth.currentUser.email);
+             } else {
+              darLike(item.id, auth.currentUser.email);
+            } }}>
+        <Text style={styles.buttonText}>
+            {item.data.likes && item.data.likes.includes(auth.currentUser.email)
+              ? 'Quitar me gusta'
+              : 'Me gusta'}
+         </Text>        
         </Pressable>
         <Pressable
           onPress={() => props.navigation.navigate('Comments', {

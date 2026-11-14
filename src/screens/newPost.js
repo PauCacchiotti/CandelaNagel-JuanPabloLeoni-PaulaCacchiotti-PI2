@@ -15,10 +15,11 @@ function NewPost(props) {
       return;
     }
     db.collection('posts').add({
-      descripcionPost: descripcionPost,
-      email: auth.currentUser.email,
+      owner: auth.currentUser.email,
+      description: descripcionPost,
       createdAt: Date.now(),
-      likes: []
+      likes: [],
+      comments: []
     })
     .then(() => {
       setDescripcionPost('');
