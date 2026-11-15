@@ -42,7 +42,7 @@ function Login(props) {
         onChangeText={ text => setPassword(text) }
         value={ password } />
 
-      { loginError !== '' ? <Text style={ styles.error }>{ loginError }</Text> : null }
+      <Text style={ styles.error }>{ loginError }</Text>
 
       <Pressable style={ styles.button } onPress={ () => login(email, password) }>
         <Text style={ styles.buttonText }>Login</Text>
