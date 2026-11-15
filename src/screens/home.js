@@ -7,9 +7,9 @@ import firebase from 'firebase';
 function Home(props) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    const unsubscribe = db.collection('posts')
-      .orderBy('createdAt', 'desc')
-      .onSnapshot(
+      db.collection('posts')      
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(
         snapshot => {
           let posteos = [];
           snapshot.forEach(doc => {
@@ -24,7 +24,6 @@ function Home(props) {
           console.log('Error al obtener posteos:', error);
         }
       );
-    return () => unsubscribe();
   }, []);
 
   function darLike(id, email) {
@@ -67,18 +66,15 @@ function Home(props) {
         <Text style={styles.likes}>
           Likes: {item.data.likes ? item.data.likes.length : 0}
         </Text>
-        <Pressable
+        <Pressable 
           onPress={() => {
-             if (item.data.likes && item.data.likes.includes(auth.currentUser.email)) {
+            if (item.data.likes && item.data.likes.includes(auth.currentUser.email)) {
               quitarLike(item.id, auth.currentUser.email);
-             } else {
+            } else {
               darLike(item.id, auth.currentUser.email);
-            } }}>
-        <Text style={styles.buttonText}>
-            {item.data.likes && item.data.likes.includes(auth.currentUser.email)
-              ? 'Quitar me gusta'
-              : 'Me gusta'}
-         </Text>        
+            }
+            }}>
+              <Text style={styles.buttonText}>Me gusta</Text> 
         </Pressable>
         <Pressable
           onPress={() => props.navigation.navigate('Comments', {
@@ -97,9 +93,6 @@ function Home(props) {
         data={posts}
         keyExtractor={item => item.id}
         renderItem={renderPost}
-        ListEmptyComponent={
-          <Text>Todavía no hay posteos.</Text>
-        }
       />
     </View>
   );

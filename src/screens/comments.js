@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text,TextInput, Pressable,FlatList , StyleSheet } from 'react-native';
+import { View, Text,TextInput, Pressable, FlatList , StyleSheet } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
@@ -10,15 +10,13 @@ function Comments(props) {
   const { postId } = props.route.params;
 
   useEffect(() => {
-  const unsubscribe = db.collection('posts')
-    .doc(postId)
-    .onSnapshot(doc => {
-      if (doc.exists) {
-        setComentarios(doc.data().comments);
-      }
-    });
-
-  return () => unsubscribe();
+    db.collection('posts')    
+      .doc(postId)
+      .onSnapshot(doc => {
+        if (doc.exists) {
+          setComentarios(doc.data().comments);
+        }
+      });
 }, []);
 
   function agregarComentario(){
@@ -52,17 +50,16 @@ function Comments(props) {
           <View style={styles.comentario}>
             <Text style={styles.email}>{item.owner}</Text>
             <Text>{item.text}</Text>
-    </View>
+          </View> 
         }
-        listaEmptyComponent={<Text>Todavía no hay comentarios.</Text>}
-        />
+     />
 
-        <TextInput
-        style={styles.input}
-        placeholder="Escribí un comentario"
-        onChangeText={text => setComentario(text)}
-        value={comentario}
-      />
+          <TextInput
+          style={styles.input}
+          placeholder="Escribí un comentario"
+          onChangeText={text => setComentario(text)}
+          value={comentario}
+        />
 
       <Pressable
         style={styles.boton}
@@ -80,8 +77,6 @@ function Comments(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#f2f2f2', 
     padding: 20
 
@@ -89,7 +84,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold'
-  },comentario: {
+  },
+  comentario: {
     backgroundColor: '#fff',
     padding: 15,
     borderRadius: 8,
