@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
-
 function Home(props) {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
-      db.collection('posts')      
-        .orderBy('createdAt', 'desc')
-        .onSnapshot(
-        snapshot => {
-          let posteos = [];
-          snapshot.forEach(doc => {
-            posteos.push({
-              id: doc.id,
-              data: doc.data()
-            });
-          });
-          setPosts(posteos);
-        },
-        error => {
-          console.log('Error al obtener posteos:', error);
-        }
-      );
+    db.collection('posts')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(docs => {
+        let posteos = [];
+        docs.forEach(doc => {
+          posteos.push({
+            id: doc.id,
+            data: doc.data()
+          })
+        })
+        setPosts(posteos);
+      })
   }, []);
 
   function darLike(id, email) {
@@ -35,9 +30,6 @@ function Home(props) {
       .then(() => {
         console.log('Like agregado');
       })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   function quitarLike(id, email) {
@@ -49,50 +41,36 @@ function Home(props) {
       .then(() => {
         console.log('Like eliminado');
       })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
-  function renderPost({ item }) {
-    return (
-      <View style={styles.post}>
-        <Text style={styles.email}>
-          {item.data.owner}
-        </Text>
-        <Text style={styles.description}>
-          {item.data.description}
-        </Text>
-        <Text style={styles.likes}>
-          Likes: {item.data.likes ? item.data.likes.length : 0}
-        </Text>
-        <Pressable 
-          onPress={() => {
-            if (item.data.likes && item.data.likes.includes(auth.currentUser.email)) {
-              quitarLike(item.id, auth.currentUser.email);
-            } else {
-              darLike(item.id, auth.currentUser.email);
-            }
-            }}>
-              <Text style={styles.buttonText}>Me gusta</Text> 
-        </Pressable>
-        <Pressable
-          onPress={() => props.navigation.navigate('Comments', {
-            postId: item.id
-          })}
-        >
-          <Text style={styles.buttonText}>Comentar</Text>
-        </Pressable>
-      </View>
-    );
-  }
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
+    <View style={ styles.container }>
+      <Text style={ styles.title }>Home</Text>
+
       <FlatList
-        data={posts}
-        keyExtractor={item => item.id}
-        renderItem={renderPost}
+        data={ posts }
+        keyExtractor={ item => item.id }
+        renderItem={ ({ item }) =>
+          <View style={ styles.post }>
+            <Text style={ styles.email }>{ item.data.owner }</Text>
+            <Text style={ styles.description }>{ item.data.description }</Text>
+            <Text style={ styles.likes }>Likes: { item.data.likes.length }</Text>
+
+            <Pressable onPress={ () => {
+              if (item.data.likes.includes(auth.currentUser.email)) {
+                quitarLike(item.id, auth.currentUser.email);
+              } else {
+                darLike(item.id, auth.currentUser.email);
+              }
+            } }>
+              <Text style={ styles.buttonText }>Me gusta</Text>
+            </Pressable>
+
+            <Pressable onPress={ () => props.navigation.navigate('Comments', { postId: item.id }) }>
+              <Text style={ styles.buttonText }>Comentar</Text>
+            </Pressable>
+          </View>
+        }
       />
     </View>
   );
