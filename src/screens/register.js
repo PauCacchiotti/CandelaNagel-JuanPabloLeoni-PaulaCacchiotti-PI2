@@ -9,7 +9,11 @@ function Register(props) {
   const [registerError, setRegisterError] = useState('');
 
   function register(email, pass, username) {
-    if (username === '') {
+    if (email === '') {
+      setRegisterError('El email es obligatorio.');
+    } else if (pass === '') {
+      setRegisterError('La contraseña es obligatoria.');
+    } else if (username === '') {
       setRegisterError('El nombre de usuario es obligatorio.');
     } else {
       auth.createUserWithEmailAndPassword(email, pass)
