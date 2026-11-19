@@ -16,13 +16,18 @@ function Login(props) {
   }, []);
 
   function login(email, pass) {
-    auth.signInWithEmailAndPassword(email, pass)
-      .then((response) => {
-        props.navigation.navigate('HomeMenu');
-      })
-      .catch(error => {
-        setLoginError('Credenciales inválidas.');
-      })
+    if (email === '') {
+      setLoginError('El email es obligatorio.');
+    } else if(password === ''){
+        setLoginError('La contraseña es obligatoria.');
+    } else{
+      auth.signInWithEmailAndPassword(email, pass)
+        .then((response) => {
+          props.navigation.navigate('HomeMenu');
+        })
+        .catch(error => {
+          setLoginError('Credenciales inválidas.');
+        })}
   }
 
   return (
