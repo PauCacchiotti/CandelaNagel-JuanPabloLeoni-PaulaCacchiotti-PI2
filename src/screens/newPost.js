@@ -25,7 +25,7 @@ function NewPost(props) {
   }
   return (
     <View style={ styles.container }>
-      <Text style={ styles.title }>Crear posteo</Text>
+      <Text style={ styles.title }>Nueva Reseña</Text>
       <TextInput style={ styles.field }
         keyboardType='default'
         placeholder='¿Qué querés compartir?'
@@ -42,18 +42,20 @@ function NewPost(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#111827',
     padding: 20
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#F9FAFB',
     marginBottom: 20
   },
   field: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1F2937',
+    color: '#F9FAFB',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#374151',
     borderRadius: 8,
     padding: 15,
     height: 150,
@@ -61,10 +63,11 @@ const styles = StyleSheet.create({
   },
   mensaje: {
     fontSize: 14,
+    color: '#E63946',
     marginBottom: 15
   },
   button: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#E63946',
     padding: 12,
     borderRadius: 5,
     alignItems: 'center'

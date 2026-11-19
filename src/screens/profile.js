@@ -40,7 +40,7 @@ function Profile(props) {
       <Text style={ styles.info }>{ username }</Text>
       <Text style={ styles.label }>Email:</Text>
       <Text style={ styles.info }>{ auth.currentUser.email }</Text>
-      <Text style={ styles.subtitle }>Mis posteos</Text>
+      <Text style={ styles.subtitle }>Mis reseñas</Text>
       <FlatList
         data={ posts }
         keyExtractor={ item => item.id }
@@ -61,44 +61,50 @@ function Profile(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#111827',
     padding: 20
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
+    color: '#F9FAFB',
     marginBottom: 20
   },
   label: {
     fontSize: 14,
     fontWeight: 'bold',
+    color: '#9CA3AF',
     marginBottom: 5
   },
   info: {
     fontSize: 16,
+    color: '#F9FAFB',
     marginBottom: 15
   },
   subtitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#F9FAFB',
     marginBottom: 15
   },
   post: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1F2937',
     padding: 15,
     borderRadius: 8,
+    borderColor: '#374151',
     marginBottom: 10
   },
   description: {
     fontSize: 15,
+    color: '#E5E7EB',
     marginBottom: 10
   },
   likes: {
     fontSize: 14,
-    color: '#666'
+    color: '#9CA3AF'
   },
   button: {
-    backgroundColor: '#dc3545',
+    backgroundColor: '#E63946',
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',

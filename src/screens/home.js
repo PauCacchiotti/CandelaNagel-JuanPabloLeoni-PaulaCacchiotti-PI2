@@ -45,7 +45,7 @@ function Home(props) {
 
   return (
     <View style={ styles.container }>
-      <Text style={ styles.title }>Home</Text>
+      <Text style={ styles.title }>CineTalk</Text>
 
       <FlatList
         data={ posts }
@@ -79,34 +79,38 @@ function Home(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#111827',
     padding: 20
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#F9FAFB',
     marginBottom: 20
   },
   post: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1F2937',
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 12,
     marginBottom: 15
   },
   email: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#F9FAFB',
     marginBottom: 10
   },
   description: {
     fontSize: 15,
+    color: '#E5E7EB',
     marginBottom: 10
   },
   likes: {
+    color: '#9CA3AF',
     marginBottom: 10
   },
   buttonText: {
-    color: '#007bff',
+    color: '#E63946',
     marginBottom: 10
   }
 });

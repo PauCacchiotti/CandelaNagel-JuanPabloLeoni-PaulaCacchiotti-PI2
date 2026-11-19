@@ -71,45 +71,49 @@ function Comments(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#111827',
     padding: 20
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
+    color: '#F9FAFB',
     marginBottom: 20
   },
   comentario: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1F2937',
     padding: 15,
     borderRadius: 8,
     marginBottom: 10
   },
   email: {
     fontWeight: 'bold',
+    color: '#F9FAFB',
     marginBottom: 5
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: '#1F2937',
+    color: '#F9FAFB',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#374151',
     padding: 12,
     borderRadius: 8,
     marginTop: 10
   },
   mensaje: {
-    color: '#dc3545',
+    color: '#E63946',
     marginTop: 10
   },
   boton: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#E63946',
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10
   },
   buttonText: {
-    color: '#fff'
+    color: '#fff',
+    fontWeight: 'bold'
   }
 });
 
